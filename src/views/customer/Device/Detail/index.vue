@@ -124,6 +124,7 @@ import EdgeMap from './EdgeMap/index.vue';
 import Parsing from './Parsing/index.vue';
 import GateWay from './GateWay/index.vue'
 import Log from './Log/index.vue';
+import Job from './Job/index.vue';
 import { _deploy, _disconnect } from '@/api/device/instance';
 import { getImage, onlyMessage } from '@/utils/comm';
 import { getWebSocket } from '@/utils/websocket';
@@ -163,6 +164,10 @@ const initList = [
         tab: '设备功能',
     },
     {
+        key: 'Job',
+        tab: '任务管理',
+    },
+    {
         key: 'Log',
         tab: '日志管理',
     },
@@ -177,6 +182,7 @@ const tabs = {
     ChildDevice,
     Diagnose,
     Function,
+    Job,
     Modbus,
     OPCUA,
     EdgeMap,
