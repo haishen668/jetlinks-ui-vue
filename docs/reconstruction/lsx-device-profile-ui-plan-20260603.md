@@ -58,6 +58,32 @@ git commit -m "feat: point device manager ui to lsx branch"
 git push
 ```
 
+## 无私有子模块远端时的恢复方式
+
+为了避免本地子模块提交丢失，前端根仓库已保存补丁：
+
+```text
+docs/reconstruction/patches/device-manager-ui-lsx-device-profile-0aea2b3.patch
+```
+
+如果以后重新 clone 前端仓库，但还没有 `haishen668/device-manager-ui` 子模块 fork，可以这样恢复 LSX 设备详情展示：
+
+```powershell
+cd F:\project\other\jetlinks\worktrees\jetlinks-ui-vue-lsx-ui-migration-2.11
+git submodule update --init --recursive src/modules/device-manager-ui
+
+cd F:\project\other\jetlinks\worktrees\jetlinks-ui-vue-lsx-ui-migration-2.11\src\modules\device-manager-ui
+git switch -c lsx-ui-migration-2.11-device-profile
+git am ..\..\..\docs\reconstruction\patches\device-manager-ui-lsx-device-profile-0aea2b3.patch
+```
+
+恢复后再次运行：
+
+```powershell
+cd F:\project\other\jetlinks\worktrees\jetlinks-ui-vue-lsx-ui-migration-2.11
+corepack pnpm build
+```
+
 ## 验证
 
 运行：
