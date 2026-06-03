@@ -20,13 +20,13 @@
             <template #rightExtraRender>
                 <j-space>
                     <PermissionButton type="primary" v-if="detail?.accessProvider === 'official-edge-gateway'
-                        " hasPermission="device/Instance:update" @click="
+                        " hasPermission="customer/Device:update" @click="
         _current = {};
     childVisible = true;
     ">新增并绑定</PermissionButton>
-                    <PermissionButton type="primary" @click="visible = true" hasPermission="device/Instance:update">
+                    <PermissionButton type="primary" @click="visible = true" hasPermission="customer/Device:update">
                         绑定</PermissionButton>
-                    <PermissionButton type="primary" hasPermission="device/Instance:update" :popConfirm="{
+                    <PermissionButton type="primary" hasPermission="customer/Device:update" :popConfirm="{
                         title: '确定解绑吗？',
                         onConfirm: handleUnBind,
                     }">批量解除</PermissionButton>
@@ -51,7 +51,7 @@
                             :disabled="i.disabled" :popConfirm="i.popConfirm" :tooltip="{
                                 ...i.tooltip,
                             }" @click="i.onClick" type="link" style="padding: 0px"
-                            :hasPermission="'device/Instance:' + i.key">
+                            :hasPermission="'customer/Device:' + i.key">
                             <template #icon>
                                 <AIcon :type="i.icon" />
                             </template>
@@ -67,7 +67,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import type { ActionsType } from '@/components/Table';
-import { query, unbindDevice, unbindBatchDevice, queryByParent, deleteDeviceMapping } from '@/api/device/instance';
+import { query, unbindDevice, unbindBatchDevice, queryByParent, deleteDeviceMapping } from '@/api/customer/Device';
 import { useInstanceStore } from '@/store/instance';
 import { storeToRefs } from 'pinia';
 import BindChildDevice from './BindChildDevice/index.vue';
@@ -175,7 +175,7 @@ const getActions = (data: Partial<Record<string, any>>): ActionsType[] => {
             },
             icon: 'EyeOutlined',
             onClick: () => {
-                router.push('/iot/device/instance/detail/' + data.id);
+                router.push('/iot/customer/Device/detail/' + data.id);
             },
         },
         {

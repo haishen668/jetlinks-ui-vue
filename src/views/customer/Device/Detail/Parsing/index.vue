@@ -9,7 +9,7 @@
                         当前数据解析内容已脱离产品影响，
                         <PermissionButton
                             type="link"
-                            hasPermission="device/Instance:update"
+                            hasPermission="customer/Device:update"
                             @click="rest()"
                         >
                             重置
@@ -20,7 +20,7 @@
                         当前数据解析内容继承自产品,
                         <PermissionButton
                             type="link"
-                            hasPermission="device/Instance:update"
+                            hasPermission="customer/Device:update"
                             @click="readOnly = false"
                             :style="color"
                         >
@@ -122,7 +122,7 @@
     <div style="margin-top: 10px; margin-left: 10px">
         <PermissionButton
             type="primary"
-            hasPermission="device/Instance:update"
+            hasPermission="customer/Device:update"
             :loading="loading"
             :disabled="isDisabled"
             @click="debug()"
@@ -133,7 +133,7 @@
             调试
         </PermissionButton>
         <PermissionButton
-            hasPermission="device/Instance:update"
+            hasPermission="customer/Device:update"
             :loading="loading"
             :disabled="!isTest"
             @click="save()"
@@ -158,7 +158,7 @@ import {
   testCode,
   saveDeviceCode,
   delDeviceCode, queryCodeTips, queryProductCodeTips,
-} from '@/api/device/instance';
+} from '@/api/customer/Device';
 import { message } from 'jetlinks-ui-components';
 import { isBoolean } from 'lodash';
 import { onlyMessage } from '@/utils/comm';

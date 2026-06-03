@@ -204,7 +204,7 @@ import {
     saveEdgeMap,
     removeEdgeMap,
     edgeChannel,
-} from '@/api/device/instance';
+} from '@/api/customer/Device';
 import MSelect from './MSelect.vue';
 import PatchMapping from './PatchMapping.vue';
 import { onlyMessage } from '@/utils/comm';
@@ -252,7 +252,7 @@ const columns = [
 const permissionStore = usePermissionStore();
 
 const data:any = ref([])
-const isPermission = permissionStore.hasPermission('device/Instance:update');
+const isPermission = permissionStore.hasPermission('customer/Device:update');
 
 const current = ref<number>(1);
 const pageSize = ref<number>(10);

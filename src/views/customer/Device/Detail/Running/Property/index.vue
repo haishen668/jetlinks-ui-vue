@@ -53,7 +53,7 @@
                             @click="i.onClick && i.onClick(slotProps)"
                             type="link"
                             style="padding: 0px"
-                            :hasPermission="'device/Instance:update'"
+                            :hasPermission="'customer/Device:update'"
                         >
                             <template #icon><AIcon :type="i.icon" /></template>
                         </PermissionButton>
@@ -83,7 +83,7 @@ import ValueRender from './ValueRender.vue';
 import Save from './Save.vue';
 import Detail from './Detail/index.vue';
 import Indicators from './Indicators.vue';
-import { getProperty } from '@/api/device/instance';
+import { getProperty } from '@/api/customer/Device';
 import { useInstanceStore } from '@/store/instance';
 import { getWebSocket } from '@/utils/websocket';
 import { map } from 'rxjs/operators';

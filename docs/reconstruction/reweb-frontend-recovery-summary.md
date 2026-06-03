@@ -46,18 +46,26 @@ Files changed or added:
 
 - `src/api/customerDevice.ts`
   - restored `executeFunctions(deviceId, functionId, data)`
+- `src/api/customer/Device.js`
+  - added a compatibility API module for restored customer device pages
+  - customer list/import/export/update functions use `customerDevice.ts`
+  - shared device detail/actions fall back to `device/instance.ts`
 - `src/views/customer/Device/Detail/Info/index.vue`
   - restored customer-device detail fields used by the old page
   - restored REWEB function execution and delayed browser open
   - restored switch-card dropdown behavior
   - restored ping_config downlink button
   - restored network/SIM/automatic-switch-card display
+- `src/views/customer/Device/Detail/components/DeviceAmap.vue`
+  - restored the map marker component referenced by the old compiled detail page
 - `src/views/customer/Device/**`
   - restored customer device route modules by reusing the existing JetLinks 2.1 device module structure where the old source was not available
+  - restored customer route names and permissions from `device/Instance` to `customer/Device`
 - `src/views/customer/DashBoard/**`
   - restored dashboard route modules from the corresponding device dashboard structure
 - `src/views/customer/components/**`
   - restored shared metadata/inkling components required by copied detail pages
+  - restored customer metadata permissions to `customer/Device`
 
 ## Verification
 
@@ -68,6 +76,13 @@ pnpm.cmd run build
 ```
 
 Result:
+
+- old compiled route audit passed:
+
+```text
+customer view routes in compiled assets: 37
+missing source files: 0
+```
 
 - frontend build passed
 - Vite emitted only pre-existing Rollup circular chunk warnings around Metadata component re-exports

@@ -35,7 +35,7 @@
                             title: '确认启用设备',
                             onConfirm: handleAction,
                         }"
-                        hasPermission="device/Instance:action"
+                        hasPermission="customer/Device:action"
                     >
                         启用设备
                     </PermissionButton>
@@ -47,7 +47,7 @@
                             title: '确认断开连接？',
                             onConfirm: handleDisconnect,
                         }"
-                        hasPermission="device/Instance:action"
+                        hasPermission="customer/Device:action"
                     >
                         断开连接
                     </PermissionButton>
@@ -125,7 +125,7 @@ import Parsing from './Parsing/index.vue';
 import GateWay from './GateWay/index.vue'
 import Log from './Log/index.vue';
 import Job from './Job/index.vue';
-import { _deploy, _disconnect } from '@/api/device/instance';
+import { _deploy, _disconnect } from '@/api/customer/Device';
 import { getImage, onlyMessage } from '@/utils/comm';
 import { getWebSocket } from '@/utils/websocket';
 import { useMenuStore } from '@/store/menu';
@@ -296,7 +296,7 @@ const initPage = async (newId: any) => {
 }
 
 onBeforeRouteUpdate((to: any) => {
-  if (to.params?.id!==instanceStore.current.id && to.name === 'device/Instance/Detail') {
+  if (to.params?.id!==instanceStore.current.id && to.name === 'customer/Device/Detail') {
     initPage(to.params?.id)
   }
 })

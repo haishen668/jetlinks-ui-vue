@@ -6,7 +6,7 @@
                 <PermissionButton
                     type="link"
                     @click="visible = true"
-                    hasPermission="device/Instance:update"
+                    hasPermission="customer/Device:update"
                 >
                     <AIcon type="EditOutlined" />编辑<j-tooltip
                         title="管理设备与其他业务的关联关系，关系来源于关系配置"

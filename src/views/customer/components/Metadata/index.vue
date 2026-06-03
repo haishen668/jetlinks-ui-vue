@@ -52,7 +52,7 @@
 </template>
 <script setup lang="ts" name="Metadata">
 import PermissionButton from '@/components/PermissionButton/index.vue'
-import { deleteMetadata } from '@/api/device/instance.js'
+import { deleteMetadata } from '@/api/customer/Device.js'
 import { message } from 'jetlinks-ui-components';
 import { useInstanceStore } from '@/store/instance'
 import Import from './Import/index.vue'
@@ -72,7 +72,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-const permission = computed(() => props.type === 'device' ? 'device/Instance' : 'device/Product')
+const permission = computed(() => props.type === 'device' ? 'customer/Device' : 'device/Product')
 const visible = ref(false)
 const cat = ref(false)
 const tabActiveKey = ref('properties')

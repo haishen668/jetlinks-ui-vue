@@ -30,7 +30,7 @@
                         <PermissionButton
                             type="primary"
                             @click="handleAdd"
-                            hasPermission="device/Instance:add"
+                            hasPermission="customer/Device:add"
                         >
                             <template #icon
                                 ><AIcon type="PlusOutlined"
@@ -51,7 +51,7 @@
                                 <j-menu-item>
                                     <PermissionButton
                                         @click="exportVisible = true"
-                                        hasPermission="device/Instance:export"
+                                        hasPermission="customer/Device:export"
                                     >
                                         <template #icon
                                             ><AIcon type="ExportOutlined"
@@ -62,7 +62,7 @@
                                 <j-menu-item>
                                     <PermissionButton
                                         @click="importVisible = true"
-                                        hasPermission="device/Instance:import"
+                                        hasPermission="customer/Device:import"
                                     >
                                         <template #icon
                                             ><AIcon type="ImportOutlined"
@@ -78,7 +78,7 @@
                                             title: '确认激活全部设备？',
                                             onConfirm: activeAllDevice,
                                         }"
-                                        hasPermission="device/Instance:action"
+                                        hasPermission="customer/Device:action"
                                     >
                                         <template #icon
                                             ><AIcon type="CheckCircleOutlined"
@@ -90,7 +90,7 @@
                                     <PermissionButton
                                         type="primary"
                                         @click="syncDeviceStatus"
-                                        hasPermission="device/Instance:view"
+                                        hasPermission="customer/Device:view"
                                     >
                                         <template #icon
                                             ><AIcon type="SyncOutlined"
@@ -106,7 +106,7 @@
                                             title: '已启用的设备无法删除，确认删除选中的禁用状态设备？',
                                             onConfirm: delSelectedDevice,
                                         }"
-                                        hasPermission="device/Instance:delete"
+                                        hasPermission="customer/Device:delete"
                                     >
                                         <template #icon
                                             ><AIcon type="DeleteOutlined"
@@ -121,7 +121,7 @@
                                             title: '确认激活选中设备',
                                             onConfirm: activeSelectedDevice,
                                         }"
-                                        hasPermission="device/Instance:action"
+                                        hasPermission="customer/Device:action"
                                     >
                                         <template #icon
                                             ><AIcon type="CheckOutlined"
@@ -137,7 +137,7 @@
                                             title: '确认禁用选中设备?',
                                             onConfirm: disabledSelectedDevice,
                                         }"
-                                        hasPermission="device/Instance:action"
+                                        hasPermission="customer/Device:action"
                                     >
                                         <template #icon
                                             ><AIcon type="StopOutlined"
@@ -205,7 +205,7 @@
                                     ...item.tooltip,
                                 }"
                                 @click="item.onClick"
-                                :hasPermission="'device/Instance:' + item.key"
+                                :hasPermission="'customer/Device:' + item.key"
                             >
                                 <AIcon
                                     type="DeleteOutlined"
@@ -258,7 +258,7 @@
                                 :hasPermission="
                                     i.key === 'view'
                                         ? true
-                                        : 'device/Instance:' + i.key
+                                        : 'customer/Device:' + i.key
                                 "
                             >
                                 <template #icon
@@ -307,7 +307,7 @@ import {
     batchUndeployDevice,
     batchDeployDevice,
     batchDeleteDevice,
-} from '@/api/device/instance';
+} from '@/api/customer/Device';
 import { getImage, LocalStore, onlyMessage } from '@/utils/comm';
 import Import from './Import/modal.vue';
 import Export from './Export/index.vue';
@@ -638,7 +638,7 @@ const handleAdd = () => {
  * 查看
  */
 const handleView = (id: string) => {
-    menuStory.jumpPage('device/Instance/Detail', { id });
+    menuStory.jumpPage('customer/Device/Detail', { id });
 };
 
 const getActions = (
@@ -856,7 +856,7 @@ const batchActions: BatchActionsType[] = [
     {
         key: 'export',
         text: '批量导出设备',
-        permission: 'device/Instance:export',
+        permission: 'customer/Device:export',
         icon: 'ExportOutlined',
         onClick: () => {
             exportVisible.value = true;
@@ -865,7 +865,7 @@ const batchActions: BatchActionsType[] = [
     {
         key: 'import',
         text: '批量导入设备',
-        permission: 'device/Instance:import',
+        permission: 'customer/Device:import',
         icon: 'ImportOutlined',
         onClick: () => {
             importVisible.value = true;
@@ -876,7 +876,7 @@ const batchActions: BatchActionsType[] = [
         text: '启用全部设备',
         ghost: true,
         type: 'primary',
-        permission: 'device/Instance:action',
+        permission: 'customer/Device:action',
         icon: 'CheckCircleOutlined',
         popConfirm: {
             title: '确认启用全部设备？',
@@ -895,7 +895,7 @@ const batchActions: BatchActionsType[] = [
         key: 'delete',
         text: '批量删除设备',
         danger: true,
-        permission: 'device/Instance:delete',
+        permission: 'customer/Device:delete',
         icon: 'DeleteOutlined',
         selected: {
             popConfirm: {
@@ -910,7 +910,7 @@ const batchActions: BatchActionsType[] = [
     //     ghost: true,
     //     type: 'primary',
     //     icon: 'CheckOutlined',
-    //     permission: 'device/Instance:action',
+    //     permission: 'customer/Device:action',
     //     selected: {
     //         popConfirm: {
     //             title: '确认激活选中设备',
@@ -923,7 +923,7 @@ const batchActions: BatchActionsType[] = [
         text: '批量禁用设备',
         danger: true,
         icon: 'StopOutlined',
-        permission: 'device/Instance:action',
+        permission: 'customer/Device:action',
         selected: {
             popConfirm: {
                 title: '确认禁用选中设备?',

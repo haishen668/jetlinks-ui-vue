@@ -4,7 +4,7 @@ import styles from './index.module.less'
 import type { ListProps } from './util'
 import { networkInitList, childInitList, cloudInitList, mediaInitList, TextColorMap, StatusMap, modifyArrayList, isExit, gatewayList, urlMap } from './util'
 import { useInstanceStore } from "@/store/instance"
-import { startNetwork, startGateway, getGatewayDetail, queryGatewayState, queryProtocolDetail, detail, queryProductState, queryProductConfig, queryDeviceConfig, _deploy } from '@/api/device/instance'
+import { startNetwork, startGateway, getGatewayDetail, queryGatewayState, queryProtocolDetail, detail, queryProductState, queryProductConfig, queryDeviceConfig, _deploy } from '@/api/customer/Device'
 import { PropType, VNode } from "vue"
 import { _deploy as _deployProduct } from "@/api/device/product"
 import _ from "lodash"
@@ -721,7 +721,7 @@ const Status = defineComponent({
                                             <span>
                                                 设备已禁用，请
                                                 <PermissionButton
-                                                    hasPermission="device/Instance:action"
+                                                    hasPermission="customer/Device:action"
                                                     type="link"
                                                     style="padding: 0"
                                                     popConfirm={{

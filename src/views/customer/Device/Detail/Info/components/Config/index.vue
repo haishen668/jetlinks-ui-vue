@@ -6,7 +6,7 @@
                 <PermissionButton
                     type="link"
                     @click="visible = true"
-                    hasPermission="device/Instance:update"
+                    hasPermission="customer/Device:update"
                 >
                     <template #icon><AIcon type="EditOutlined" /></template>
                     编辑
@@ -18,7 +18,7 @@
                         title: '确认重新应用该配置？',
                         onConfirm: deployBtn,
                     }"
-                    hasPermission="device/Instance:update"
+                    hasPermission="customer/Device:update"
                 >
                     <AIcon type="CheckOutlined" />应用配置<j-tooltip
                         title="修改配置后需重新应用后才能生效。"
@@ -32,7 +32,7 @@
                         title: '确认恢复默认配置？',
                         onConfirm: resetBtn,
                     }"
-                    hasPermission="device/Instance:update"
+                    hasPermission="customer/Device:update"
                 >
                     <AIcon type="SyncOutlined" />恢复默认<j-tooltip
                         title="该设备单独编辑过配置信息，点击此将恢复成默认的配置信息，请谨慎操作。"
@@ -118,7 +118,7 @@ import {
     getConfigMetadata,
     _deploy,
     configurationReset,
-} from '@/api/device/instance';
+} from '@/api/customer/Device';
 import Save from './Save.vue';
 import { onlyMessage } from '@/utils/comm';
 

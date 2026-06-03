@@ -6,7 +6,7 @@
                 <PermissionButton
                     type="link"
                     @click="visible = true"
-                    hasPermission="device/Instance:update"
+                    hasPermission="customer/Device:update"
                 >
                     <AIcon type="EditOutlined" />编辑
                 </PermissionButton>
