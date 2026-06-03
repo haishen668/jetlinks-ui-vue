@@ -264,7 +264,7 @@ Actual: committed as `86169dd1 feat: add lsx backend api wrappers` and pushed to
 - Create: `src/views/customer/index.vue`
 - Create: `src/views/customer/components/EditDialog.vue`
 
-- [ ] **Step 1: Reuse list conventions from device instance page**
+- [x] **Step 1: Reuse list conventions from device instance page**
 
 Read:
 
@@ -274,7 +274,7 @@ Get-Content -Path F:\project\other\jetlinks\jetlinks-ui-vue-2.1.1\src\views\devi
 
 Expected: identify the page table, query, save/edit action, delete/action column, and permission helpers used by JetLinks 2.1 UI.
 
-- [ ] **Step 2: Implement customer table**
+- [x] **Step 2: Implement customer table**
 
 Create a customer page that calls:
 
@@ -296,7 +296,7 @@ createTime
 actions
 ```
 
-- [ ] **Step 3: Implement edit dialog**
+- [x] **Step 3: Implement edit dialog**
 
 Create a modal form with fields:
 
@@ -319,7 +319,7 @@ telephone: optional
 email: optional
 ```
 
-- [ ] **Step 4: Build-check the slice**
+- [x] **Step 4: Build-check the slice**
 
 Run:
 
@@ -328,6 +328,8 @@ npm --prefix F:\project\other\jetlinks\jetlinks-ui-vue-2.1.1 run build
 ```
 
 Expected: TypeScript and Vite complete without unresolved import errors from the new customer page.
+
+Actual: restored from compiled chunks `index.175337567905084.js`, `EditDialog.17533756790502.js`, and `customer.1753375679050.js`; build passed; committed as `32dc73d3 feat: restore customer management pages`.
 
 ## Task 4: Restore Customer Device Pages
 
