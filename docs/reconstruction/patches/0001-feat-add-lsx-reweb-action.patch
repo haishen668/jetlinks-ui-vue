@@ -1,0 +1,126 @@
+From 01bfe0ab4d0e881f8e7092d8440ee2262b21be97 Mon Sep 17 00:00:00 2001
+From: haishen668 <shuyijian00@163.com>
+Date: Wed, 3 Jun 2026 20:30:09 +0800
+Subject: [PATCH] feat: add lsx reweb action
+
+---
+ api/instance.ts                             |  9 ++++
+ views/device/Instance/Detail/Info/index.vue | 54 ++++++++++++++++++++-
+ 2 files changed, 62 insertions(+), 1 deletion(-)
+
+diff --git a/api/instance.ts b/api/instance.ts
+index 3998924..2260707 100644
+--- a/api/instance.ts
++++ b/api/instance.ts
+@@ -404,6 +404,15 @@ export const getUnit = () => request.get<UnitType[]>(`/protocol/units`)
+  */
+ export const executeFunctions = (deviceId: string, functionId: string, data: any) => request.post(`/device/invoked/${deviceId}/function/${functionId}`, data)
+ 
++/**
++ * 执行设备实例功能
++ * @param deviceId 设备id
++ * @param functionId 功能id
++ * @param data 功能参数
++ * @returns
++ */
++export const invokeInstanceFunction = (deviceId: string, functionId: string, data: any) => request.post(`/device/instance/${deviceId}/function/${functionId}`, data)
++
+ /**
+  * 读取属性
+  * @param deviceId 设备id
+diff --git a/views/device/Instance/Detail/Info/index.vue b/views/device/Instance/Detail/Info/index.vue
+index c9f0dee..87cc864 100644
+--- a/views/device/Instance/Detail/Info/index.vue
++++ b/views/device/Instance/Detail/Info/index.vue
+@@ -100,7 +100,18 @@
+         bordered
+         style="margin-top: 20px"
+     >
+-        <template #title>LSX 设备信息</template>
++        <template #title>
++            <span>LSX 设备信息</span>
++            <j-permission-button
++                v-if="hasRewebProfile"
++                type="link"
++                :loading="rewebLoading"
++                hasPermission="device/Instance:action"
++                @click="openReweb"
++            >
++                打开 REWEB
++            </j-permission-button>
++        </template>
+         <a-descriptions-item
+             v-for="item in lsxProfileItems"
+             :key="item.key"
+@@ -159,6 +170,8 @@ import InkingModal from './components/InklingModal';
+ import dayjs from 'dayjs';
+ import { detail as queryPluginAccessDetail } from '../../../../../api/link/accessConfig';
+ import { getPluginData } from '../../../../../api/link/plugin';
++import { invokeInstanceFunction } from '../../../../../api/instance';
++import { onlyMessage } from '@jetlinks-web/utils';
+ import {useI18n} from "vue-i18n";
+ 
+ const { t: $t } = useI18n();
+@@ -167,6 +180,7 @@ const inkingVisible = ref<boolean>(false);
+ const instanceStore = useInstanceStore();
+ const inklingDeviceId = ref();
+ const channelId = ref();
++const rewebLoading = ref(false);
+ 
+ const emptyValue = '--';
+ 
+@@ -230,6 +244,13 @@ const lsxProfileItems = computed(() => {
+ 
+ const lsxCards = computed(() => instanceStore.current?.cards || []);
+ 
++const hasRewebProfile = computed(() => hasValue((instanceStore.current as Record<string, any> | undefined)?.subDomain));
++
++const rewebUrl = computed(() => {
++    const subDomain = (instanceStore.current as Record<string, any> | undefined)?.subDomain;
++    return hasValue(subDomain) ? `http://${subDomain}.reweb.wugee.net.cn` : '';
++});
++
+ const hasLsxProfile = computed(() => {
+     const current = (instanceStore.current || {}) as Record<string, any>;
+     const profileKeys = [
+@@ -303,6 +324,37 @@ const giveAnInkling = () => {
+     inkingVisible.value = true;
+ };
+ 
++const openReweb = async () => {
++    const current = (instanceStore.current || {}) as Record<string, any>;
++    const deviceId = current.id;
++    const subDomain = current.subDomain;
++
++    if (!deviceId) {
++        onlyMessage('设备 ID 为空，无法打开 REWEB', 'warning');
++        return;
++    }
++
++    if (!hasValue(subDomain)) {
++        onlyMessage('设备缺少 REWEB 子域，无法打开远程 Web', 'warning');
++        return;
++    }
++
++    rewebLoading.value = true;
++    try {
++        await invokeInstanceFunction(deviceId, 'reweb', {
++            subDomain,
++            reweb: subDomain,
++            url: rewebUrl.value,
++        });
++        window.open(rewebUrl.value, '_blank');
++        onlyMessage('REWEB 指令已发送', 'success');
++    } catch (e) {
++        onlyMessage('REWEB 指令发送失败', 'error');
++    } finally {
++        rewebLoading.value = false;
++    }
++};
++
+ const queryInkling = () => {
+     if (instanceStore.current?.accessProvider === 'plugin_gateway') {
+         queryPluginAccessDetail(instanceStore.current?.accessId).then(
+-- 
+2.45.1.windows.1
+
