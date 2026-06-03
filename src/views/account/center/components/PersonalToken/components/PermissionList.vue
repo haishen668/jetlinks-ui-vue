@@ -58,7 +58,7 @@
 
 <script setup>
 import { handleData } from './data'
-import { queryPermission_api } from '@authentication-manager-ui/api/system/permission'
+import { getPermission_api as queryPermission_api } from '@authentication-manager-ui/api/system/permission'
 import { useI18n } from 'vue-i18n';
 
 const { t: $t } = useI18n();
