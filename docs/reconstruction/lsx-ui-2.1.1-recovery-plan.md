@@ -140,7 +140,7 @@ Backend custom endpoints to support:
 
 - Create: `docs/reconstruction/lsx-ui-2.1.1-recovery-plan.md`
 
-- [ ] **Step 1: Review worktree status**
+- [x] **Step 1: Review worktree status**
 
 Run:
 
@@ -155,7 +155,7 @@ Expected:
 ?? docs/
 ```
 
-- [ ] **Step 2: Commit the plan**
+- [x] **Step 2: Commit the plan**
 
 Run:
 
@@ -166,7 +166,9 @@ git -C F:\project\other\jetlinks\jetlinks-ui-vue-2.1.1 commit -m "docs: plan lsx
 
 Expected: a new commit on `lsx-ui-2.1.1-recovery`.
 
-- [ ] **Step 3: Push the branch**
+Actual: committed as `40ae9959 docs: plan lsx ui 2.1.1 recovery`.
+
+- [x] **Step 3: Push the branch**
 
 Run:
 
@@ -176,6 +178,8 @@ git -C F:\project\other\jetlinks\jetlinks-ui-vue-2.1.1 push -u origin lsx-ui-2.1
 
 Expected: branch exists in the private GitHub remote configured as `origin`.
 
+Actual: pushed to `origin/lsx-ui-2.1.1-recovery`.
+
 ## Task 2: Restore API Wrappers
 
 **Files:**
@@ -184,7 +188,7 @@ Expected: branch exists in the private GitHub remote configured as `origin`.
 - Create: `src/api/customerDevice.ts`
 - Create: `src/api/deviceJob.ts`
 
-- [ ] **Step 1: Inspect existing API style**
+- [x] **Step 1: Inspect existing API style**
 
 Run:
 
@@ -194,7 +198,7 @@ Get-Content -Path F:\project\other\jetlinks\jetlinks-ui-vue-2.1.1\src\api\comm.t
 
 Expected: API functions import `server from '@/utils/request'` and return `server.get`, `server.post`, `server.put`, `server.patch`, or `server.remove`.
 
-- [ ] **Step 2: Create customer API**
+- [x] **Step 2: Create customer API**
 
 Create `src/api/customer.ts` with wrappers for:
 
@@ -208,7 +212,7 @@ GET /customer
 PUT /customer
 ```
 
-- [ ] **Step 3: Create customer device API**
+- [x] **Step 3: Create customer device API**
 
 Create `src/api/customerDevice.ts` with wrappers for:
 
@@ -227,7 +231,7 @@ GET /customer/device/{productId}/template.{format}
 GET /customer/device/export.{format}
 ```
 
-- [ ] **Step 4: Create device job API**
+- [x] **Step 4: Create device job API**
 
 Create `src/api/deviceJob.ts` with wrappers for:
 
@@ -241,7 +245,7 @@ DELETE /deviceJob/{id}
 POST /deviceJob/{id}/execute/_query
 ```
 
-- [ ] **Step 5: Type-check import paths**
+- [x] **Step 5: Type-check import paths**
 
 Run:
 
@@ -250,6 +254,8 @@ git -C F:\project\other\jetlinks\jetlinks-ui-vue-2.1.1 diff -- src/api
 ```
 
 Expected: only the three new API files are shown.
+
+Actual: committed as `86169dd1 feat: add lsx backend api wrappers` and pushed to `origin/lsx-ui-2.1.1-recovery`.
 
 ## Task 3: Restore Customer List And Edit Dialog
 
@@ -470,6 +476,16 @@ If dependencies are missing:
 npm --prefix F:\project\other\jetlinks\jetlinks-ui-vue-2.1.1 install
 npm --prefix F:\project\other\jetlinks\jetlinks-ui-vue-2.1.1 run build
 ```
+
+Observed dependency note:
+
+```powershell
+npm install --legacy-peer-deps --ignore-scripts --package-lock=false --no-audit --no-fund
+npm install vue3-json-viewer@2.2.2 --no-save --legacy-peer-deps --ignore-scripts --package-lock=false --no-audit --no-fund
+npm run build
+```
+
+This succeeds locally. Without the `vue3-json-viewer@2.2.2` local pin, npm installs `2.4.1`, which no longer contains `dist/index.css`; official 2.1 source imports that old CSS path.
 
 Expected final state:
 
