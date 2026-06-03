@@ -61,6 +61,9 @@ export const customerDeviceTemplateUrl = (productId: string, format: string) =>
 export const customerDeviceExport = (format: string, params?: any) =>
   server.get(`/customer/device/export.${format}`, params, { responseType: 'blob' })
 
+export const executeFunctions = (deviceId: string, functionId: string, data?: Record<string, any>) =>
+  server.post(`/device/instance/${deviceId}/function/${functionId}`, data)
+
 export const query = queryCustomerDevice
 export const queryPosition = queryCustomerDevicePosition
 export const getLocation = getCustomerDeviceLocation
@@ -74,3 +77,4 @@ export const importDevice = customerDeviceImport
 export const templateDownload = customerDeviceTemplateDownload
 export const templateUrl = customerDeviceTemplateUrl
 export const exportDevice = customerDeviceExport
+export const execute = executeFunctions

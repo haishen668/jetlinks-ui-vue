@@ -1,0 +1,9 @@
+<template>
+  <j-card>
+    <j-result
+      status="info"
+      title="修改绑定用户"
+      sub-title="客户设备绑定用户调整入口已恢复，批量修改仍使用客户设备列表中的操作。"
+    />
+  </j-card>
+</template>
